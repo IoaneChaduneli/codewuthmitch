@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'snippets/header.html' %}
+</head>
+<body>
+    {% comment %} body {% endcomment %}
+
+    <style type="text/css">
+        .main{
+            min-height:80vh;
+            height:100%%;
+        }
+    </style>
+    <div class ="main">
+        {% block content %}
+    
+        {% endblock content %}
+
+    </div>
+    
+    {% comment %} endbody {% endcomment %}
+    {% include 'snippets/footer.html' %}
+</body>
+
+
+
+</html>
