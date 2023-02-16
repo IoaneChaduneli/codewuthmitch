@@ -51,6 +51,9 @@
         {% endif %}
         <button class="w-100 btn btn-lg btn-primary" type="submit">Save changes</button>
     </form>
+    <div class="d-flex flex-column">
+        <a class="m-auto" href="{% url 'account:password_change' %}">Change password</a>
+    </div>
 </main>
 
 {% endblock %}
