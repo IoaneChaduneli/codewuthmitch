@@ -6,6 +6,6 @@ class CreateBlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = [
             'title',
-            'text',
-            'image'    
+            'text',   
+            'image' 
         ]

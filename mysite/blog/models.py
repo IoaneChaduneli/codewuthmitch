@@ -1,8 +1,7 @@
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_delete
 from django.utils.text import slugify
 from django.conf import settings
-from django.db.models.signals import post_delete
 from django.dispatch import receiver
 # Create your models here.
 
@@ -25,11 +24,11 @@ class BlogPost(models.Model):
         return self.title
 
 @receiver(post_delete, sender = BlogPost)
-def submission_delete(sender, instance, **kwargs):
+def submission_delete(sender, instance: BlogPost, **kwargs):
     instance.image.delete(False)
 
-def pre_save_blog_post_receiver(sender, instance, *args, **kwargs):
+@receiver(pre_save, sender=BlogPost)
+def slugify_blog_post(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = slugify( instance.author.username + "-" + instance.title)
 
-pre_save.connect(pre_save_blog_post_receiver, sender = BlogPost)
