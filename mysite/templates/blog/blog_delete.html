@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<style type="text/css">
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+      }
+      
+      .form-signin .form-floating:focus-within {
+        z-index: 2;
+      }
+      
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      
+</style>
+<main class="form-signin w-100 m-auto">
+    <h2>Delete Post</h2>
+    <form method="POST">
+    {% csrf_token %}
+        <p>Are you sure that you want to delete the post "{{blog_post.title}}"?</p>
+        <div>
+        <button class="btn btn-danger" type="submit">Yes, Delete</button>
+        <a class="btn btn-primary" href="{% url 'account:account' %}">Cancel</a>
+        </div>
+    </form>
+</main>
+{% endblock content %}

@@ -1,10 +1,16 @@
 from django.urls import path
 from blog.views import(
-    create_blog_view
+    create_blog_view,
+    detail_blog_view,
+    update_blog_view, 
+    delete_blog_view
 )
 
 app_name = 'blog'
 
 urlpatterns = [
-    path('create/', create_blog_view, name="create")
+    path('create/', create_blog_view, name="create"),
+    path('<slug>/', detail_blog_view, name='detail'),
+    path('<slug>/edit/', update_blog_view, name='edit'),
+    path('<slug>/delete', delete_blog_view, name='delete')
 ]

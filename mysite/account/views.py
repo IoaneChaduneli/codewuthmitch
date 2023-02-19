@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
+from django.contrib.auth.decorators import login_required
+from blog.models import BlogPost
 # Create your views here.
 
 def registration_view(request):
@@ -48,13 +50,11 @@ def login_view(request):
     context['login_form'] = form
     return render(request, 'account/login.html', context)
 
-
+@login_required(login_url='/login/')
 def account_view(request):
-    if not request.user.is_authenticated:
-        return redirect('account:login')
     
     context = {}
-
+    user=request.user
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -72,6 +72,8 @@ def account_view(request):
                     }
             )
     context['account_form'] = form
+    blog_posts = BlogPost.objects.filter(author = user )
+    context['blog_posts'] = blog_posts
     return render(request, 'account/account.html', context)
 
 
